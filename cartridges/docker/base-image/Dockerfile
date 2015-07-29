@@ -23,7 +23,7 @@ FROM debian:7.7
 MAINTAINER dev@wso2.org
 
 ENV DEBIAN_FRONTEND noninteractive
-ENV PCA_FILENAME apache-stratos-python-cartridge-agent-4.1.0-SNAPSHOT
+ENV PCA_FILENAME apache-stratos-python-cartridge-agent-4.1.0
 
 #JDK and configurator
 ENV JDK_VERSION 1.7.0_60
@@ -42,6 +42,7 @@ WORKDIR /opt/
 RUN apt-get update && apt-get install -y \
 		openssh-server \
 		git \
+		vim \
 		python \
 		python-pip \ 
 		python-dev gcc \

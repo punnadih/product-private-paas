@@ -90,6 +90,7 @@
     <!--Set the flag to true if you want to enable transport level session mangment-->
     <parameter name="manageTransportSession">true</parameter>
 
+
     <!-- Synapse Configuration file -->
     <parameter name="SynapseConfig.ConfigurationFile" locked="false">
         ./repository/deployment/server/synapse-configs
