@@ -44,7 +44,7 @@ class WSO2ASStartupHandler(ICartridgeAgentPlugin):
         # port mappings format: """NAME:mgt-console|PROTOCOL:https|PORT:4500|PROXY_PORT:9443;
         #                          NAME:pt-http|PROTOCOL:http|PORT:4501|PROXY_PORT:7280;
         #                          NAME:pt-https|PROTOCOL:https|PORT:4502|PROXY_PORT:7243"""
-
+        
         log.info("Port mappings: %s" % port_mappings_str)
         if port_mappings_str is not None:
 
