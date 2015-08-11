@@ -30,13 +30,21 @@ class WSO2ASStartupHandler(ICartridgeAgentPlugin):
     def run_plugin(self, values):
         log = LogFactory().get_log(__name__)
 
+        log.info("Disabling git ssl verification...")
+        os.environ["GIT_SSL_NO_VERIFY"] = "1"
+
         log.info("Reading port mappings...")
         port_mappings_str = values["PORT_MAPPINGS"]
 
-        mgt_console_https_port = None
+        http_proxy_port = None
+        https_proxy_port = None
+        pt_http_port = None
+        pt_https_port = None
 
-        # port mappings format: """NAME:mgt-console|PROTOCOL:https|PORT:4500|PROXY_PORT:9443"""
-
+        # port mappings format: """NAME:mgt-console|PROTOCOL:https|PORT:4500|PROXY_PORT:9443;
+        #                          NAME:pt-http|PROTOCOL:http|PORT:4501|PROXY_PORT:7280;
+        #                          NAME:pt-https|PROTOCOL:https|PORT:4502|PROXY_PORT:7243"""
+        
         log.info("Port mappings: %s" % port_mappings_str)
         if port_mappings_str is not None:
 
@@ -49,15 +57,26 @@ class WSO2ASStartupHandler(ICartridgeAgentPlugin):
                     name = name_value_array[0].split(":")[1]
                     protocol = name_value_array[1].split(":")[1]
                     port = name_value_array[2].split(":")[1]
-                    if name == "mgt-console" and protocol == "https":
-                        mgt_console_https_port = port
+                    if name == "http-9763" and protocol == "http":
+                        http_proxy_port = port
+                    if name == "http-9443" and protocol == "https":
+                        https_proxy_port = port
 
-        log.info("Kubernetes service management console https port: %s" % mgt_console_https_port)
-        if mgt_console_https_port is not None:
-            command = "sed -i \"s/^#CONFIG_PARAM_HTTPS_PROXY_PORT = .*/CONFIG_PARAM_HTTPS_PROXY_PORT = %s/g\" %s" % (mgt_console_https_port, "${CONFIGURATOR_HOME}/template-modules/wso2as-5.2.1/module.ini")
+        log.info("Catalina http proxy port: %s" % http_proxy_port)
+        log.info("Catalina https proxy por: %s" % https_proxy_port)
+
+        if http_proxy_port is not None:
+            command = "sed -i \"s/^#CONFIG_PARAM_HTTP_PROXY_PORT.*/CONFIG_PARAM_HTTP_PROXY_PORT = %s/g\" %s" % (http_proxy_port, "/opt/ppaas-configurator-4.1.0-SNAPSHOT/template-modules/wso2as-5.2.1/module.ini")
             p = subprocess.Popen(command, shell=True)
             output, errors = p.communicate()
-            log.info("Successfully updated management console https proxy port: %s in AS template module" % mgt_console_https_port)
+            log.info("Successfully updated catalina http proxy port: %s in AS template module" % http_proxy_port)
+
+        if http_proxy_port is not None:
+            command = "sed -i \"s/^#CONFIG_PARAM_HTTPS_PROXY_PORT.*/CONFIG_PARAM_HTTPS_PROXY_PORT = %s/g\" %s" % (https_proxy_port, "/opt/ppaas-configurator-4.1.0-SNAPSHOT/template-modules/wso2as-5.2.1/module.ini")
+            p = subprocess.Popen(command, shell=True)
+            output, errors = p.communicate()
+            log.info("Successfully updated catalina https proxy port: %s in AS template module" % https_proxy_port)
+
 
         # configure server
         log.info("Configuring WSO2 AS...")
