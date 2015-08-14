@@ -94,3 +94,11 @@ class WSO2ASStartupHandler(ICartridgeAgentPlugin):
         p = subprocess.Popen(start_command, env=env_var, shell=True)
         output, errors = p.communicate()
         WSO2ASStartupHandler.log.debug("WSO2 AS started successfully")
+
+        s2gitDomain = values.get("S2GIT_DOMAIN")
+        s2gitIP = values.get("S2GIT_IP")
+        entry_command = "echo '"+ s2gitIP + " "+  s2gitDomain + "' >> /etc/hosts"
+        env_var = os.environ.copy()
+        p = subprocess.Popen(entry_command, env=env_var, shell=True)
+        output, errors = p.communicate()
+        WSO2ASStartupHandler.log.info("S2git host entry added successfully")

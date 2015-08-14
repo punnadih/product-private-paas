@@ -175,6 +175,18 @@ else
 	sed -i "s#METADATA-SERVICE-URL#${METADATA_SERVICE_URL}#g" ${PCA_HOME}/agent.conf
 fi
 
+if [ -z "${ARTFCT_CLONE_RETRIES}" ]; then
+   sed -i "s/ARTFCT_CLONE_RETRIES/5/g" ${PCA_HOME}/agent.conf
+else
+   sed -i "s/ARTFCT_CLONE_RETRIES/${ARTFCT_CLONE_RETRIES}/g" ${PCA_HOME}/agent.conf
+fi
+
+if [ -z "${ARTFCT_CLONE_INT}" ]; then
+   sed -i "s/ARTFCT_CLONE_INT/10/g" ${PCA_HOME}/agent.conf
+else
+   sed -i "s/ARTFCT_CLONE_INT/${ARTFCT_CLONE_INT}/g" ${PCA_HOME}/agent.conf
+fi
+
 if [ -z "${LOG_LEVEL}" ]; then
 	sed -i "s/LOG_LEVEL/INFO/g" ${PCA_HOME}/logging.ini
 else
