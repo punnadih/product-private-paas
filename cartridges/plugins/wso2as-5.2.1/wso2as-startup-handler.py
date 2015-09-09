@@ -102,3 +102,59 @@ class WSO2ASStartupHandler(ICartridgeAgentPlugin):
         p = subprocess.Popen(entry_command, env=env_var, shell=True)
         output, errors = p.communicate()
         WSO2ASStartupHandler.log.info("S2git host entry added successfully")
+
+        bamDomain = values.get("BAM_DOMAIN")
+        bamIP = values.get("BAM_IP")
+        entry_command = "echo '"+ bamIP + " "+  bamDomain + "' >> /etc/hosts"
+        env_var = os.environ.copy()
+        p = subprocess.Popen(entry_command, env=env_var, shell=True)
+        output, errors = p.communicate()
+        WSO2ASStartupHandler.log.info("BAM host entry added successfully")
+
+        thriftDomain = values.get("THRIFT_DOMAIN")
+        thriftIP = values.get("THRIFT_IP")
+        entry_command = "echo '"+ thriftIP + " "+  thriftDomain + "' >> /etc/hosts"
+        env_var = os.environ.copy()
+        p = subprocess.Popen(entry_command, env=env_var, shell=True)
+        output, errors = p.communicate()
+        WSO2ASStartupHandler.log.info("Thrift host entry added successfully")
+
+        msgDomain = values.get("MESSAGING_DOMAIN")
+        msgIP = values.get("MESSAGING_IP")
+        entry_command = "echo '"+ msgIP + " "+  msgDomain + "' >> /etc/hosts"
+        env_var = os.environ.copy()
+        p = subprocess.Popen(entry_command, env=env_var, shell=True)
+        output, errors = p.communicate()
+        WSO2ASStartupHandler.log.info("Messaging host entry added successfully")
+
+        socialDomain = values.get("SOCIAL_DOMAIN")
+        socialIP = values.get("SOCIAL_IP")
+        entry_command = "echo '"+ socialIP + " "+  socialDomain + "' >> /etc/hosts"
+        env_var = os.environ.copy()
+        p = subprocess.Popen(entry_command, env=env_var, shell=True)
+        output, errors = p.communicate()
+        WSO2ASStartupHandler.log.info("Social host entry added successfully")
+
+        lbDomain = values.get("LB_DOMAIN")
+        lbIP = values.get("LB_IP")
+        entry_command = "echo '"+ lbIP + " "+  lbDomain + "' >> /etc/hosts"
+        env_var = os.environ.copy()
+        p = subprocess.Popen(entry_command, env=env_var, shell=True)
+        output, errors = p.communicate()
+        WSO2ASStartupHandler.log.info("LB host entry added successfully")
+
+        mysqlDomain = values.get("MYSQL_DOMAIN")
+        mysqlIP = values.get("MYSQL_IP")
+        entry_command = "echo '"+ mysqlIP + " "+  mysqlDomain + "' >> /etc/hosts"
+        env_var = os.environ.copy()
+        p = subprocess.Popen(entry_command, env=env_var, shell=True)
+        output, errors = p.communicate()
+        WSO2ASStartupHandler.log.info("Mysql host entry added successfully")
+
+        appfacDomain = values.get("APPFAC_DOMAIN")
+        appfacIP = values.get("APPFAC_IP")
+        entry_command = "echo '"+ appfacIP + " "+  appfacDomain + "' >> /etc/hosts"
+        env_var = os.environ.copy()
+        p = subprocess.Popen(entry_command, env=env_var, shell=True)
+        output, errors = p.communicate()
+        WSO2ASStartupHandler.log.info("App Factory host entry added successfully")

@@ -36,12 +36,6 @@ COPY packages/wso2as-${WSO2_AS_VERSION}.zip /opt/
 COPY scripts/export-envs.sh /tmp/export-envs.sh
 COPY packages/${AS_TEMPLATE_MODULE_NAME}.zip /opt/
 COPY packages/wso2as-${WSO2_AS_VERSION}.zip /opt/
-COPY packages/mysql-connector-java-${MYSQL_CONNECTOR_VERSION}-bin.jar /opt/
-COPY packages/org.wso2.carbon.appfactory.eventing-2.2.0-SNAPSHOT.jar /opt/
-COPY packages/org.wso2.carbon.appfactory.common-2.2.0-SNAPSHOT.jar /opt/
-COPY packages/org.wso2.carbon.appfactory.ext-2.2.0-SNAPSHOT.jar /opt/
-COPY packages/org.wso2.carbon.appfactory.application.mgt.stub-2.2.0-SNAPSHOT.jar /opt/
-COPY packages/nimbus-jose-jwt_2.26.1.wso2v2.jar /opt/
 
 COPY plugins ${PCA_HOME}/plugins
 
@@ -52,13 +46,6 @@ WORKDIR /opt
 
 RUN unzip /opt/wso2as-${WSO2_AS_VERSION}.zip -d /opt/ && \
     rm /opt/wso2as-${WSO2_AS_VERSION}.zip && \
-    mv /opt/mysql-connector-java-${MYSQL_CONNECTOR_VERSION}-bin.jar /opt/wso2as-${WSO2_AS_VERSION}/repository/components/lib && \
-    mv /opt/org.wso2.carbon.appfactory.eventing-2.2.0-SNAPSHOT.jar /opt/wso2as-${WSO2_AS_VERSION}/repository/components/dropins && \
-    mv /opt/org.wso2.carbon.appfactory.common-2.2.0-SNAPSHOT.jar /opt/wso2as-${WSO2_AS_VERSION}/repository/components/dropins && \
-    mv /opt/org.wso2.carbon.appfactory.ext-2.2.0-SNAPSHOT.jar /opt/wso2as-${WSO2_AS_VERSION}/repository/components/dropins && \
-    mv /opt/org.wso2.carbon.appfactory.application.mgt.stub-2.2.0-SNAPSHOT.jar /opt/wso2as-${WSO2_AS_VERSION}/repository/components/dropins && \
-    mv /opt/nimbus-jose-jwt_2.26.1.wso2v2.jar /opt/wso2as-${WSO2_AS_VERSION}/repository/components/dropins && \
-
 	unzip /opt/${AS_TEMPLATE_MODULE_NAME}.zip -d ${CONFIGURATOR_HOME}/template-modules && \
     rm -rf /opt/${AS_TEMPLATE_MODULE_NAME}.zip
 
