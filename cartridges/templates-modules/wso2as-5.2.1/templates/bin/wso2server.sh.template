@@ -303,4 +303,5 @@ do
     -Djndi.properties.dir="$CARBON_HOME/repository/conf" \
     org.wso2.carbon.bootstrap.Bootstrap $*
     status=$?
+done
 
