@@ -27,6 +27,8 @@
     <!--
        Product Name
     -->
+
+    <CarbonDataSourceRepositoryClass>org.wso2.carbon.appfactory.ext.datasource.ApplicationAwareDataSourceRepository</CarbonDataSourceRepositoryClass>
     <Name>Application Server</Name>
 
     <!--
